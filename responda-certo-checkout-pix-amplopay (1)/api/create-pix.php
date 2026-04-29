@@ -107,28 +107,7 @@ if ($httpCode < 200 || $httpCode >= 300) {
     ], $httpCode);
 }
 
-$ordersFile = __DIR__ . '/data/orders.json';
-$orders = [];
-if (file_exists($ordersFile)) {
-    $orders = json_decode(file_get_contents($ordersFile), true) ?: [];
-}
-
-$orders[$orderId] = [
-    'identifier' => $identifier,
-    'transactionId' => $data['transactionId'] ?? null,
-    'status' => $data['status'] ?? 'PENDING',
-    'client' => [
-        'name' => $name,
-        'email' => $email,
-        'phone' => $phone,
-        'document' => $document,
-    ],
-    'amount' => (float) $config['amount'],
-    'createdAt' => date('c'),
-    'raw' => $data,
-];
-
-file_put_contents($ordersFile, json_encode($orders, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+// Pedido não é salvo em arquivo local.
 
 json_response([
     'success' => true,
