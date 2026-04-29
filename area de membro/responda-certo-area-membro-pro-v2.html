@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Responda Certo — Área do Membro Pro</title>
+<meta name="description" content="Área do membro do Responda Certo: gere respostas, scripts, follow-ups e prompt personalizado para vender melhor no WhatsApp." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#25D366;--green2:#128C7E;--darkgreen:#075E54;
+  --black:#071207;--ink:#162116;--muted:#607060;--soft:#f5f8f5;--soft2:#eef4ee;--line:#dfe8df;
+  --white:#fff;--red:#d71920;--amber:#f7c948;--blue:#2f80ed;
+  --fd:'Plus Jakarta Sans',sans-serif;--fb:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --r:14px;--rlg:22px;--shadow:0 18px 50px rgba(5,30,5,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fb);background:#fff;color:var(--ink);line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(37,211,102,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(37,211,102,.035) 1px,transparent 1px);
+  background-size:42px 42px;
+}
+button,input,textarea,select{font-family:inherit}
+button{cursor:pointer}
+.app{position:relative;z-index:1;min-height:100vh}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.topbar{
+  position:sticky;top:0;z-index:50;background:rgba(7,18,7,.92);
+  backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar-inner{height:66px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:var(--fd);font-weight:800;letter-spacing:-.02em}
+.brand-dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 7px rgba(37,211,102,.12)}
+.nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.nav a,.nav button{
+  color:rgba(255,255,255,.72);text-decoration:none;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);font-size:12px;font-weight:700;padding:8px 11px;border-radius:999px;
+}
+.nav a:hover,.nav button:hover{color:#fff;border-color:rgba(255,255,255,.28)}
+.hero{padding:44px 0 30px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:stretch}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.nav{display:none}}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(37,211,102,.22);
+  background:rgba(37,211,102,.08);border-radius:999px;padding:7px 13px;margin-bottom:18px;
+  color:var(--green2);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 6px rgba(37,211,102,.14)}
+.hero-card,.panel,.tool-card,.library-card,.upsell-card{
+  background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--rlg);box-shadow:var(--shadow);
+}
+.hero-card{padding:34px;position:relative;overflow:hidden}
+.hero-card::after{
+  content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,211,102,.12),transparent 65%);
+}
+h1{font-family:var(--fd);font-size:clamp(31px,5vw,56px);line-height:1.04;letter-spacing:-.05em;color:var(--black);margin-bottom:15px;position:relative}
+h1 em{font-style:normal;color:var(--green2)}
+.hero-sub{font-size:17px;color:var(--muted);max-width:690px;margin-bottom:26px;position:relative}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0 26px}
+@media(max-width:640px){.kpi-grid{grid-template-columns:1fr}}
+.kpi{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi strong{display:block;font-family:var(--fd);font-size:22px;color:var(--black);line-height:1}
+.kpi span{font-size:12px;color:var(--muted);font-weight:700}
+.primary{
+  border:none;background:var(--green);color:#fff;border-radius:14px;padding:16px 22px;font-weight:800;font-family:var(--fd);
+  font-size:16px;box-shadow:0 13px 28px rgba(37,211,102,.25);transition:.18s;display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+}
+.primary:hover{background:var(--green2);transform:translateY(-1px)}
+.secondary{
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:14px;padding:15px 18px;font-weight:800;font-family:var(--fd);
+  font-size:15px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+.quick-card{padding:26px;background:var(--black);color:#fff;border-radius:var(--rlg);position:relative;overflow:hidden}
+.quick-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(37,211,102,.2),transparent 48%)}
+.quick-card>*{position:relative}
+.quick-card h2{font-family:var(--fd);font-size:24px;letter-spacing:-.03em;margin-bottom:10px}
+.quick-card p{color:rgba(255,255,255,.67);font-size:14px;margin-bottom:16px}
+.mini-steps{display:flex;flex-direction:column;gap:10px}
+.mini-step{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.num{width:25px;height:25px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:800;flex:none}
+.mini-step b{display:block;font-size:13px}.mini-step span{display:block;color:rgba(255,255,255,.58);font-size:12px}
+.section{padding:34px 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+@media(max-width:740px){.section-head{flex-direction:column;align-items:flex-start}}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--green2);margin-bottom:8px}
+h2.title{font-family:var(--fd);font-size:clamp(24px,3.5vw,36px);letter-spacing:-.04em;line-height:1.1;color:var(--black)}
+.section-head p{color:var(--muted);font-size:14px;max-width:460px}
+.panel{padding:22px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{border:1px solid var(--line);background:var(--soft);color:var(--muted);padding:10px 14px;border-radius:999px;font-size:13px;font-weight:800}
+.tab.active{background:var(--green);border-color:var(--green);color:#fff}
+.generator{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
+@media(max-width:900px){.generator{grid-template-columns:1fr}}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:560px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:900}
+input,textarea,select{
+  width:100%;border:1px solid var(--line);background:var(--soft);border-radius:13px;padding:13px 14px;font-size:14px;color:var(--ink);outline:none;
+}
+textarea{min-height:86px;resize:vertical}
+input:focus,textarea:focus,select:focus{background:#fff;border-color:var(--green)}
+.hint{font-size:12px;color:#889688}
+.result-box{
+  background:var(--black);border-radius:18px;overflow:hidden;min-height:100%;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.08)
+}
+.result-top{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#101b10;padding:12px 14px;color:rgba(255,255,255,.42);font-family:var(--mono);font-size:11px}
+.copy-mini{border:1px solid rgba(37,211,102,.3);background:rgba(37,211,102,.12);color:#7ee787;border-radius:8px;padding:6px 10px;font-family:var(--fb);font-weight:800;font-size:12px}
+.result-content{padding:19px;color:rgba(255,255,255,.84);font-size:14px;line-height:1.8;white-space:pre-wrap;flex:1;max-height:430px;overflow:auto}
+.big-copy{border:none;background:var(--green);color:#fff;font-family:var(--fd);font-weight:900;font-size:15px;padding:16px;border-radius:0 0 18px 18px}
+.big-copy:hover{background:var(--green2)}
+.output-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.output-actions button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;font-weight:800;color:var(--ink)}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.cards-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.cards-grid{grid-template-columns:1fr}}
+.tool-card{padding:20px;transition:.18s}
+.tool-card:hover{transform:translateY(-2px);border-color:rgba(37,211,102,.45)}
+.icon{width:42px;height:42px;border-radius:13px;background:rgba(37,211,102,.1);display:flex;align-items:center;justify-content:center;margin-bottom:13px;color:var(--green2);font-weight:900}
+.tool-card h3{font-family:var(--fd);font-size:18px;letter-spacing:-.02em;margin-bottom:6px;color:var(--black)}
+.tool-card p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.tool-card button{width:100%;border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:12px;font-weight:900;color:var(--ink)}
+.tool-card button:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.library-wrap{display:grid;grid-template-columns:270px 1fr;gap:16px}
+@media(max-width:840px){.library-wrap{grid-template-columns:1fr}}
+.library-card{padding:18px}
+.side-list{display:flex;flex-direction:column;gap:8px}
+.side-list button{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:12px;text-align:left;color:var(--ink);font-weight:800}
+.side-list button.active{background:var(--green);color:#fff;border-color:var(--green)}
+.script-box{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;margin-bottom:12px}
+.script-box h4{font-family:var(--fd);font-size:16px;margin-bottom:8px;color:var(--black)}
+.script-box p{font-size:14px;color:var(--muted);white-space:pre-wrap}
+.script-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.script-actions button{border:1px solid var(--line);background:var(--soft);border-radius:10px;padding:9px 11px;font-size:12px;font-weight:900}
+.plan-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+@media(max-width:940px){.plan-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.plan-grid{grid-template-columns:1fr}}
+.day{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px}
+.day b{display:inline-flex;background:rgba(37,211,102,.1);color:var(--green2);border-radius:999px;padding:4px 9px;font-size:11px;margin-bottom:10px}
+.day h4{font-family:var(--fd);font-size:15px;color:var(--black);margin-bottom:6px}.day p{font-size:12px;color:var(--muted)}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:720px){.checklist{grid-template-columns:1fr}}
+.check{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;align-items:flex-start}
+.check input{width:auto;margin-top:3px;accent-color:var(--green)}
+.check span{font-size:14px;color:var(--ink)}
+.upsell-card{padding:26px;background:linear-gradient(135deg,#071207,#0d1c0d);color:#fff;position:relative;overflow:hidden}
+.upsell-card::before{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(247,201,72,.16),transparent 64%)}
+.upsell-card>*{position:relative}
+.upsell-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:740px){.upsell-grid{grid-template-columns:1fr}}
+.offer{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px}
+.offer small{color:var(--amber);font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.offer h3{font-family:var(--fd);font-size:22px;letter-spacing:-.03em;margin:8px 0}
+.offer p{color:rgba(255,255,255,.62);font-size:13px;margin-bottom:14px}
+.price{font-family:var(--fd);font-size:34px;font-weight:900;margin-bottom:12px}.price s{font-size:15px;color:rgba(255,255,255,.3);margin-right:6px}
+.offer button{width:100%;border:none;border-radius:12px;padding:14px;font-weight:900;font-family:var(--fd);background:var(--amber);color:#5d4100}
+.toast{position:fixed;right:18px;bottom:18px;background:var(--black);color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:13px 15px;z-index:99;box-shadow:0 20px 50px rgba(0,0,0,.25);display:none;font-weight:800;font-size:13px}
+.toast.show{display:block;animation:toast .25s ease both}@keyframes toast{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:12px;text-align:center}
+.login{
+  position:fixed;inset:0;z-index:200;background:rgba(0,10,0,.78);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.login.hidden{display:none}
+.login-box{background:#fff;border-radius:24px;padding:28px;width:100%;max-width:440px;box-shadow:0 30px 90px rgba(0,0,0,.25)}
+.login-box h2{font-family:var(--fd);font-size:27px;letter-spacing:-.04em;margin:12px 0 6px;color:var(--black)}
+.login-box p{color:var(--muted);font-size:14px;margin-bottom:18px}
+.login-box .primary{width:100%;justify-content:center;margin-top:12px}
+.warning{background:#fff8e1;border:1px solid #f1d177;color:#6d4d00;border-radius:14px;padding:13px;font-size:13px;margin:13px 0}
+</style>
+</head>
+<body>
+<div class="login" id="login">
+  <div class="login-box">
+    <div class="badge">Área exclusiva</div>
+    <h2>Acesse seu entregável</h2>
+    <p>Digite o e-mail usado na compra. Nesta versão demo, qualquer e-mail válido libera a área. Para produção, conecte essa validação ao seu checkout.</p>
+    <label for="loginEmail">E-mail da compra</label>
+    <input id="loginEmail" type="email" placeholder="seuemail@exemplo.com" autocomplete="email">
+    <div class="warning">Dica: depois conecte ao webhook do gateway para liberar apenas clientes pagos.</div>
+    <button class="primary" onclick="login()">Acessar agora →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copiado.</div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand"><span class="brand-dot"></span> Responda Certo Pro</div>
+      <nav class="nav">
+        <a href="#gerador">Gerador</a>
+        <a href="#biblioteca">Biblioteca</a>
+        <a href="#prompt">Prompt</a>
+        <a href="#plano">Plano 7 dias</a>
+        <button onclick="logout()">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-card">
+          <div class="badge">Compra confirmada · acesso liberado</div>
+          <h1>Seu painel para <em>responder melhor</em> e vender mais no WhatsApp.</h1>
+          <p class="hero-sub">Aqui você não recebe só um prompt. Você recebe um sistema prático: respostas prontas, gerador de scripts, follow-up, prompt personalizado e plano de aplicação.</p>
+          <div class="kpi-grid">
+            <div class="kpi"><strong>32+</strong><span>respostas prontas</span></div>
+            <div class="kpi"><strong>8</strong><span>objeções universais</span></div>
+            <div class="kpi"><strong>7 dias</strong><span>plano de execução</span></div>
+          </div>
+          <div class="btn-row">
+            <a class="primary" href="#gerador">Gerar resposta agora →</a>
+            <a class="secondary" href="#biblioteca">Ver biblioteca pronta</a>
+          </div>
+        </div>
+        <aside class="quick-card">
+          <h2>Como usar sem travar</h2>
+          <p>O objetivo é simples: copiar, adaptar e enviar. Não transforme isso em curso longo.</p>
+          <div class="mini-steps">
+            <div class="mini-step"><div class="num">1</div><div><b>Preencha seu negócio</b><span>Produto, preço, público e diferencial.</span></div></div>
+            <div class="mini-step"><div class="num">2</div><div><b>Escolha a objeção</b><span>Ex.: “tá caro”, “vou pensar”, “me chama depois”.</span></div></div>
+            <div class="mini-step"><div class="num">3</div><div><b>Copie a resposta</b><span>Envie no WhatsApp com tom humano.</span></div></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="gerador">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Ferramenta principal</div>
+            <h2 class="title">Gerador de respostas para WhatsApp</h2>
+          </div>
+          <p>Gere uma resposta curta, consultiva e com fechamento natural. Depois copie e envie no WhatsApp.</p>
+        </div>
+        <div class="panel generator">
+          <div>
+            <div class="form-grid">
+              <div class="field"><label>O que você vende?</label><input id="produto" placeholder="Ex: mentoria, estética, carro, curso..." oninput="saveProfile()"></div>
+              <div class="field"><label>Preço / condição</label><input id="preco" placeholder="Ex: R$297 ou entrada + parcelas" oninput="saveProfile()"></div>
+            </div>
+            <div class="form-grid">
+              <div class="field"><label>Para quem vende?</label><input id="publico" placeholder="Ex: donos de pequenos negócios" oninput="saveProfile()"></div>
+              <div class="field"><label>Diferencial</label><input id="diferencial" placeholder="Ex: suporte, garantia, entrega rápida" oninput="saveProfile()"></div>
+            </div>
+            <div class="field"><label>Maior dor do cliente</label><textarea id="dor" placeholder="Ex: perde vendas porque não sabe abordar clientes..." oninput="saveProfile()"></textarea></div>
+            <div class="field">
+              <label>Objeção recebida</label>
+              <select id="objecao" onchange="renderResponse()"></select>
+            </div>
+            <div class="field"><label>Mensagem real do cliente (opcional)</label><textarea id="mensagem" placeholder="Cole aqui a mensagem do cliente, se tiver." oninput="saveProfile()"></textarea></div>
+            <div class="btn-row">
+              <button class="primary" onclick="renderResponse()">Gerar resposta →</button>
+              <button class="secondary" onclick="clearProfile()">Limpar campos</button>
+            </div>
+          </div>
+          <div>
+            <div class="tabs">
+              <button class="tab active" data-mode="curta" onclick="setMode('curta')">Resposta curta</button>
+              <button class="tab" data-mode="consultiva" onclick="setMode('consultiva')">Consultiva</button>
+              <button class="tab" data-mode="fechamento" onclick="setMode('fechamento')">Fechamento</button>
+            </div>
+            <div class="result-box">
+              <div class="result-top"><span id="resultLabel">resposta · pronta para WhatsApp</span><button class="copy-mini" onclick="copyText(currentResponse)">Copiar</button></div>
+              <div class="result-content" id="responseOut"></div>
+              <button class="big-copy" onclick="copyText(currentResponse)">Copiar resposta gerada</button>
+            </div>
+            <div class="output-actions">
+              <button onclick="downloadText(currentResponse,'resposta-whatsapp.txt')">Baixar .TXT</button>
+              <button onclick="renderResponse(true)">Gerar variação</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ferramentas">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Ferramentas rápidas</div>
+            <h2 class="title">Scripts prontos para situações reais</h2>
+          </div>
+          <p>Atalhos para recuperar lead, pedir decisão, confirmar interesse e reabrir conversa parada.</p>
+        </div>
+        <div class="cards-grid">
+          <div class="tool-card"><div class="icon">1</div><h3>Cliente sumiu</h3><p>Mensagem para retomar conversa sem parecer desesperado.</p><button onclick="quickTool('sumiu')">Gerar script</button></div>
+          <div class="tool-card"><div class="icon">2</div><h3>Follow-up 24h</h3><p>Volte no lead no dia seguinte com contexto e leveza.</p><button onclick="quickTool('follow24')">Gerar script</button></div>
+          <div class="tool-card"><div class="icon">3</div><h3>Fechamento direto</h3><p>Quando o lead está quente e precisa de um empurrão final.</p><button onclick="quickTool('fechamento')">Gerar script</button></div>
+          <div class="tool-card"><div class="icon">4</div><h3>Pedir indicação</h3><p>Transforme cliente satisfeito em novas oportunidades.</p><button onclick="quickTool('indicacao')">Gerar script</button></div>
+          <div class="tool-card"><div class="icon">5</div><h3>Áudio de venda</h3><p>Roteiro curto para mandar em áudio no WhatsApp.</p><button onclick="quickTool('audio')">Gerar script</button></div>
+          <div class="tool-card"><div class="icon">6</div><h3>Oferta com urgência</h3><p>Crie urgência sem parecer manipulação barata.</p><button onclick="quickTool('urgencia')">Gerar script</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="biblioteca">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Biblioteca de objeções</div>
+            <h2 class="title">Respostas prontas para copiar e adaptar</h2>
+          </div>
+          <p>Clique na objeção e copie uma das respostas. Isso já é entregável utilizável sem depender de ChatGPT.</p>
+        </div>
+        <div class="library-wrap">
+          <div class="library-card">
+            <div class="side-list" id="libraryMenu"></div>
+          </div>
+          <div class="library-card" id="libraryContent"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prompt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Prompt personalizado</div>
+            <h2 class="title">Seu Prompt do Fechador completo</h2>
+          </div>
+          <p>Use no ChatGPT para criar respostas mais específicas com base no seu negócio.</p>
+        </div>
+        <div class="panel">
+          <div class="result-box">
+            <div class="result-top"><span>prompt mestre · personalizado</span><button class="copy-mini" onclick="copyText(buildMasterPrompt())">Copiar</button></div>
+            <div class="result-content" id="promptOut"></div>
+            <button class="big-copy" onclick="copyText(buildMasterPrompt())">Copiar prompt completo</button>
+          </div>
+          <div class="output-actions">
+            <button onclick="renderPrompt()">Atualizar prompt com meus dados</button>
+            <button onclick="downloadText(buildMasterPrompt(),'prompt-do-fechador.txt')">Baixar prompt .TXT</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plano">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Aplicação prática</div>
+            <h2 class="title">Plano de 7 dias para começar a vender melhor</h2>
+          </div>
+          <p>O cliente precisa sair com clareza do que fazer depois de comprar. Esse plano aumenta uso e reduz reembolso.</p>
+        </div>
+        <div class="panel">
+          <div class="plan-grid">
+            <div class="day"><b>Dia 1</b><h4>Mapeie suas objeções</h4><p>Anote as 5 frases que mais aparecem antes do cliente sumir.</p></div>
+            <div class="day"><b>Dia 2</b><h4>Configure o prompt</h4><p>Preencha seu negócio e gere seu prompt mestre.</p></div>
+            <div class="day"><b>Dia 3</b><h4>Teste em 5 leads</h4><p>Use respostas curtas e observe quais geram retorno.</p></div>
+            <div class="day"><b>Dia 4</b><h4>Crie follow-up</h4><p>Recupere conversas paradas com os scripts prontos.</p></div>
+            <div class="day"><b>Dia 5</b><h4>Ajuste tom</h4><p>Deixe a resposta com sua voz: mais simples, direta e humana.</p></div>
+            <div class="day"><b>Dia 6</b><h4>Organize modelos</h4><p>Salve as melhores mensagens no bloco de notas ou WhatsApp Business.</p></div>
+            <div class="day"><b>Dia 7</b><h4>Meça resultado</h4><p>Compare quantos leads responderam antes e depois.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="checklist">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Checklist</div>
+            <h2 class="title">Antes de enviar qualquer resposta</h2>
+          </div>
+        </div>
+        <div class="panel checklist">
+          <label class="check"><input type="checkbox"><span>A resposta reconhece o que o cliente falou antes de vender de novo.</span></label>
+          <label class="check"><input type="checkbox"><span>Não parece texto copiado, robótico ou exagerado.</span></label>
+          <label class="check"><input type="checkbox"><span>Tem no máximo 3 a 5 linhas para WhatsApp.</span></label>
+          <label class="check"><input type="checkbox"><span>Não dá desconto como primeira reação.</span></label>
+          <label class="check"><input type="checkbox"><span>Mostra valor, resultado ou redução de risco.</span></label>
+          <label class="check"><input type="checkbox"><span>Termina com uma pergunta simples ou próximo passo claro.</span></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="upsell-card">
+          <div class="eyebrow" style="color:var(--amber)">Próximo nível</div>
+          <h2 class="title" style="color:#fff">Você já sabe o que responder. Agora pode automatizar e organizar.</h2>
+          <p style="color:rgba(255,255,255,.62);max-width:780px;margin-top:8px">Deixe os upsells como continuação lógica, não como pressão. O cliente comprou resposta; agora você oferece automação e organização.</p>
+          <div class="upsell-grid">
+            <div class="offer">
+              <small>Upsell 1</small><h3>Agente Fechador Automático</h3>
+              <p>Automação para responder leads no WhatsApp usando seu prompt e te avisar quando o lead estiver quente.</p>
+              <div class="price"><s>R$197</s> R$97</div>
+              <button onclick="fakeCheckout('Agente Fechador')">Quero automatizar</button>
+            </div>
+            <div class="offer">
+              <small>Upsell 2</small><h3>CRM do Fechador</h3>
+              <p>Planilha/painel para controlar leads, follow-up, status e conversas que precisam de retorno.</p>
+              <div class="price"><s>R$147</s> R$67</div>
+              <button onclick="fakeCheckout('CRM do Fechador')">Quero organizar leads</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap">Responda Certo Pro · Área do Membro · Entregável funcional para WhatsApp<br>Substitua os links de checkout e a validação de login antes de colocar em produção.</div>
+    </footer>
+  </main>
+</div>
+
+<script>
+let mode='curta';
+let currentResponse='';
+
+const objectionData={
+  'Tá caro':{
+    curta:`Entendo. Só para eu te orientar melhor: você achou caro comparando só o preço ou comparando o resultado que isso pode te entregar?\n\nPorque às vezes o mais caro é continuar com o problema do jeito que está.`,
+    consultiva:`Entendo totalmente. Preço pesa mesmo quando a gente ainda não enxergou todo o valor.\n\nMas me diz uma coisa: o que hoje está te custando mais — investir nisso agora ou continuar tentando resolver do mesmo jeito?`,
+    fechamento:`Faz sentido você avaliar o valor. O ponto é: se isso resolver [dor do cliente], o investimento começa a fazer mais sentido.\n\nQuer que eu te mostre a opção mais simples para começar sem pesar tanto?`
+  },
+  'Vou pensar':{
+    curta:`Claro, pensa sim. Só para eu não te deixar no escuro: o que exatamente você quer avaliar antes de decidir? Preço, confiança, forma de pagamento ou se isso serve para você?`,
+    consultiva:`Perfeito, decisão boa não precisa ser no impulso.\n\nMas normalmente quando a pessoa diz “vou pensar”, tem alguma coisa específica travando. Me fala com sinceridade: é o valor, o momento ou ficou alguma dúvida?`,
+    fechamento:`Sem problema. Para te ajudar a decidir sem ficar no “talvez”, me responde uma coisa: se a condição fizer sentido, você gostaria de começar hoje ou prefere deixar para outro momento?`
+  },
+  'Depois eu vejo':{
+    curta:`Combinado. Só cuidado para isso não virar mais uma coisa que fica para depois e o problema continua igual.\n\nQuer que eu te mande o resumo bem direto para você decidir com calma?`,
+    consultiva:`Tudo bem ver depois. Mas deixa eu te perguntar: esse “depois” é porque agora está corrido ou porque ainda não ficou claro se isso resolve o que você precisa?`,
+    fechamento:`Fechado. Posso te mandar a opção mais simples agora e você só me responde sim ou não quando puder? Assim você não perde tempo procurando tudo de novo depois.`
+  },
+  'Me chama mais tarde':{
+    curta:`Chamo sim. Qual horário fica melhor para você: mais tarde ainda hoje ou amanhã pela manhã?`,
+    consultiva:`Claro. Antes de eu te chamar depois, me diz só uma coisa para eu voltar com a informação certa: você quer tirar dúvida, ver condição ou já decidir?`,
+    fechamento:`Combinado. Vou te chamar no horário certo. Para não perdermos tempo depois: se fizer sentido para você, a ideia é seguir ainda hoje?`
+  },
+  'Vou falar com meu marido/esposa':{
+    curta:`Perfeito, faz sentido decidir junto. Quer que eu te mande uma mensagem resumida com os principais pontos para você encaminhar para ele/ela?`,
+    consultiva:`Claro. Quando envolve decisão em casa, o ideal é a outra pessoa entender o valor também.\n\nO que você acha que ele/ela mais vai querer saber: preço, garantia, resultado ou forma de pagamento?`,
+    fechamento:`Combinado. Posso te mandar um resumo curto para vocês decidirem juntos. Se os dois concordarem, você prefere seguir hoje ou deixar reservado para amanhã?`
+  },
+  'Tem desconto?':{
+    curta:`Consigo ver a melhor condição para você, sim. Mas antes: você quer desconto por orçamento ou porque ainda não enxergou valor suficiente na solução?`,
+    consultiva:`Posso tentar melhorar a condição, mas prefiro ser honesto: desconto sem entender seu caso pode virar só preço baixo sem resolver o problema.\n\nMe diz: o que faria essa compra valer a pena para você?`,
+    fechamento:`Consigo te ajudar na condição, mas primeiro quero manter o valor da entrega. Posso te oferecer [bônus/condição] para facilitar sem cortar o que você recebe. Faz sentido?`
+  },
+  'Vi mais barato':{
+    curta:`Entendo. Mais barato sempre chama atenção. A pergunta é: é a mesma entrega, o mesmo suporte e a mesma segurança?`,
+    consultiva:`Boa comparação. Só vale olhar além do preço: o barato é bom quando entrega o mesmo resultado. Se não entrega, vira custo dobrado.\n\nO que mais te importa: pagar menos agora ou ter mais segurança de resolver?`,
+    fechamento:`Se a outra opção realmente entregar tudo que você precisa, faz sentido considerar. Mas se você quer segurança, suporte e resultado, eu te mostro por que essa opção pode ser melhor. Posso te explicar em 3 pontos?`
+  },
+  'Não confio ainda':{
+    curta:`Justo. Confiança não se força. Quer que eu te mande como funciona, o que você recebe e a garantia para você avaliar sem risco?`,
+    consultiva:`Eu entendo. Ninguém gosta de comprar no escuro.\n\nO que te deixaria mais seguro agora: ver exemplos, entender a garantia ou saber exatamente como recebe o acesso?`,
+    fechamento:`Perfeito. Para reduzir seu risco: você recebe acesso imediato e tem garantia. Se não fizer sentido, não fica preso. Quer que eu te mande o passo a passo da compra?`
+  }
+};
+
+const quickScripts={
+  sumiu:`Oi, [nome]. Passando só para saber se você conseguiu ver minha última mensagem.\n\nPelo que você me falou, acredito que isso ainda pode te ajudar com [dor].\n\nFicou alguma dúvida ou você prefere que eu te mande a opção mais simples para começar?`,
+  follow24:`Oi, [nome]. Ontem você tinha demonstrado interesse em [produto/serviço], então voltei para te ajudar a decidir com clareza.\n\nO que mais está pesando para você agora: valor, confiança ou momento certo?`,
+  fechamento:`Pelo que conversamos, parece que isso faz sentido para você.\n\nO próximo passo é simples: eu te envio a condição, você confirma os dados e já deixamos tudo encaminhado.\n\nQuer seguir com a melhor opção hoje?`,
+  indicacao:`[Nome], que bom que você gostou do resultado.\n\nVocê conhece alguém que também precisa de [benefício]? Se lembrar de uma pessoa, pode me indicar. Eu cuido do atendimento com atenção.`,
+  audio:`Roteiro para áudio:\n\n“Oi, [nome], tudo bem? Gravei rapidinho para te explicar melhor. Pelo que você me falou, o principal ponto é [dor]. O que eu tenho aqui te ajuda porque [benefício]. A condição é [preço] e você recebe [diferencial]. Se fizer sentido, eu já te mando o próximo passo agora.”`,
+  urgencia:`Só para te avisar com transparência: essa condição de [oferta] está disponível até [prazo] ou enquanto tiver [vagas/unidades].\n\nNão quero te pressionar, mas também não quero que você perca se realmente fizer sentido para você. Quer que eu deixe separado?`
+};
+
+const objections=Object.keys(objectionData);
+
+function toast(msg='Copiado.'){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2100);
+}
+function login(){
+  const e=document.getElementById('loginEmail').value.trim();
+  if(!e || !e.includes('@')){toast('Digite um e-mail válido.');return}
+  localStorage.setItem('rc_member_email',e);
+  document.getElementById('login').classList.add('hidden');
+  loadProfile();
+}
+function logout(){localStorage.removeItem('rc_member_email');document.getElementById('login').classList.remove('hidden')}
+function getData(){
+  return {
+    produto:document.getElementById('produto').value.trim()||'[seu produto/serviço]',
+    preco:document.getElementById('preco').value.trim()||'[seu preço/condição]',
+    publico:document.getElementById('publico').value.trim()||'[seu público]',
+    diferencial:document.getElementById('diferencial').value.trim()||'[seu diferencial]',
+    dor:document.getElementById('dor').value.trim()||'[dor principal do cliente]',
+    mensagem:document.getElementById('mensagem').value.trim(),
+    objecao:document.getElementById('objecao').value||'Tá caro'
+  }
+}
+function personalize(txt){
+  const d=getData();
+  return txt
+    .replaceAll('[produto/serviço]',d.produto)
+    .replaceAll('[produto]',d.produto)
+    .replaceAll('[preço]',d.preco)
+    .replaceAll('[condição]',d.preco)
+    .replaceAll('[dor]',d.dor)
+    .replaceAll('[dor do cliente]',d.dor)
+    .replaceAll('[benefício]',d.diferencial)
+    .replaceAll('[diferencial]',d.diferencial)
+    .replaceAll('[nome]','')
+}
+function renderResponse(variation=false){
+  const d=getData();
+  let base=(objectionData[d.objecao]||objectionData['Tá caro'])[mode];
+  if(variation){
+    base = `Entendi. Antes de te responder direto, deixa eu separar o que importa:\n\n1. O ponto principal é ${d.dor}.\n2. A solução é ${d.produto}.\n3. A condição é ${d.preco}.\n\nMe diz: sua dúvida agora é mais sobre valor, confiança ou momento certo?`;
+  }
+  currentResponse=personalize(base);
+  document.getElementById('responseOut').textContent=currentResponse;
+  document.getElementById('resultLabel').textContent=`resposta · ${mode} · ${d.objecao}`;
+}
+function setMode(m){
+  mode=m;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));renderResponse();
+}
+async function copyText(text){
+  if(!text) return toast('Nada para copiar ainda.');
+  try{await navigator.clipboard.writeText(text);toast('Copiado para a área de transferência.')}catch(e){toast('Selecione e copie manualmente.')}
+}
+function downloadText(text,name){
+  if(!text) return toast('Nada para baixar ainda.');
+  const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
+}
+function quickTool(key){
+  currentResponse=personalize(quickScripts[key]||quickScripts.sumiu);
+  document.getElementById('responseOut').textContent=currentResponse;
+  document.getElementById('resultLabel').textContent='script rápido · pronto para WhatsApp';
+  document.getElementById('gerador').scrollIntoView({behavior:'smooth'});
+}
+function buildMasterPrompt(){
+  const d=getData();
+  return `PROMPT DO FECHADOR — RESPONDA CERTO PRO
+
+Você é meu assistente especialista em vendas por WhatsApp no Brasil.
+
+CONTEXTO DO MEU NEGÓCIO
+- Produto/serviço: ${d.produto}
+- Preço/condição: ${d.preco}
+- Público-alvo: ${d.publico}
+- Principal dor do cliente: ${d.dor}
+- Diferencial da minha oferta: ${d.diferencial}
+
+SUA FUNÇÃO
+Criar respostas curtas, humanas e persuasivas para clientes no WhatsApp, sem parecer robô, sem forçar venda e sem dar desconto como primeira reação.
+
+REGRAS DE RESPOSTA
+1. Responda em no máximo 3 a 5 linhas.
+2. Comece reconhecendo a fala do cliente.
+3. Reposicione a objeção com valor, segurança ou próximo passo.
+4. Não use linguagem difícil.
+5. Não invente garantias, bônus ou condições que eu não informei.
+6. Sempre termine com uma pergunta simples para continuar a conversa.
+7. Quando o cliente pedir desconto, tente primeiro aumentar valor, oferecer clareza ou facilitar o pagamento, sem cortar preço imediatamente.
+8. Quando o cliente sumir, reabra a conversa com naturalidade, sem cobrança.
+9. Quando o cliente disser “vou pensar”, descubra o que realmente está travando: preço, confiança, momento ou dúvida.
+
+MODELOS DE TOM
+- Direto, mas educado.
+- Consultivo, mas sem enrolar.
+- Persuasivo, mas sem parecer manipulação.
+
+COMO VOU USAR
+A partir de agora, quando eu colar uma mensagem de cliente, você deve me devolver:
+A) Resposta curta para WhatsApp
+B) Resposta mais consultiva
+C) Próxima pergunta para avançar a venda
+
+Primeira mensagem do cliente:
+${d.mensagem || '[cole aqui a mensagem do cliente]'}`;
+}
+function renderPrompt(){document.getElementById('promptOut').textContent=buildMasterPrompt()}
+function renderLibrary(selected='Tá caro'){
+  document.querySelectorAll('#libraryMenu button').forEach(b=>b.classList.toggle('active',b.textContent===selected));
+  const item=objectionData[selected];
+  const html=`
+    <div class="script-box"><h4>Resposta curta</h4><p>${personalize(item.curta)}</p><div class="script-actions"><button onclick="copyText(\`${escapeTicks(personalize(item.curta))}\`)">Copiar</button></div></div>
+    <div class="script-box"><h4>Resposta consultiva</h4><p>${personalize(item.consultiva)}</p><div class="script-actions"><button onclick="copyText(\`${escapeTicks(personalize(item.consultiva))}\`)">Copiar</button></div></div>
+    <div class="script-box"><h4>Resposta de fechamento</h4><p>${personalize(item.fechamento)}</p><div class="script-actions"><button onclick="copyText(\`${escapeTicks(personalize(item.fechamento))}\`)">Copiar</button></div></div>
+  `;
+  document.getElementById('libraryContent').innerHTML=html;
+}
+function escapeTicks(s){return s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$')}
+function initLibrary(){
+  const menu=document.getElementById('libraryMenu');
+  objections.forEach((o,i)=>{
+    const b=document.createElement('button');b.textContent=o;b.onclick=()=>renderLibrary(o);if(i===0)b.classList.add('active');menu.appendChild(b);
+  });
+  renderLibrary('Tá caro');
+}
+function initObjSelect(){
+  const s=document.getElementById('objecao');
+  objections.forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;s.appendChild(opt)});
+}
+function saveProfile(){
+  const fields=['produto','preco','publico','diferencial','dor','mensagem'];
+  const data={};fields.forEach(id=>data[id]=document.getElementById(id).value);
+  data.objecao=document.getElementById('objecao').value;
+  localStorage.setItem('rc_profile',JSON.stringify(data));
+  renderPrompt();
+}
+function loadProfile(){
+  const data=JSON.parse(localStorage.getItem('rc_profile')||'{}');
+  ['produto','preco','publico','diferencial','dor','mensagem'].forEach(id=>{if(data[id])document.getElementById(id).value=data[id]});
+  if(data.objecao)document.getElementById('objecao').value=data.objecao;
+  renderResponse();renderPrompt();renderLibrary(document.getElementById('objecao').value||'Tá caro');
+}
+function clearProfile(){
+  ['produto','preco','publico','diferencial','dor','mensagem'].forEach(id=>document.getElementById(id).value='');
+  localStorage.removeItem('rc_profile');renderResponse();renderPrompt();renderLibrary();
+}
+function fakeCheckout(name){toast(`Substitua pelo checkout: ${name}`)}
+window.addEventListener('DOMContentLoaded',()=>{
+  initObjSelect();initLibrary();
+  if(localStorage.getItem('rc_member_email')) document.getElementById('login').classList.add('hidden');
+  loadProfile();
+  document.getElementById('objecao').addEventListener('change',()=>{saveProfile();renderLibrary(document.getElementById('objecao').value)});
+});
+</script>
+</body>
+</html>
