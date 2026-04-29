@@ -337,7 +337,7 @@ const names=[['Mariana comprou agora','há 2 minutos · Recife, PE','M'],['Carlo
 
 
 <script>
-const CHECKOUT_API_ENDPOINT = '/api/create-pix.php';
+const CHECKOUT_API_ENDPOINT = '/api/create-pix';
 
 function openCheckout(){
   document.getElementById('checkoutOverlay').classList.add('on');
@@ -448,6 +448,21 @@ document.addEventListener('DOMContentLoaded', function(){
       if(window.fbq){
         fbq('track','InitiateCheckout',{value:37,currency:'BRL'});
       }
+
+      // Inicia o polling para verificar o status do pagamento
+      let pollInterval = setInterval(async () => {
+        try {
+          const checkRes = await fetch(`/api/check-pix?id=${data.transactionId}`);
+          const checkData = await checkRes.json();
+          if (checkData.success && checkData.status === 'COMPLETED') {
+            clearInterval(pollInterval);
+            localStorage.setItem('rc_member_email', data.email); // Salva para login automático na área de membros
+            window.location.href = '/area de membro/responda-certo-area-membro-pro-v2.html';
+          }
+        } catch (e) {
+          console.error('Erro ao consultar status:', e);
+        }
+      }, 5000);
 
     }catch(err){
       showCheckoutError(err.message || 'Erro ao gerar Pix.');
