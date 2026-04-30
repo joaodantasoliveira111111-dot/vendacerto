@@ -426,20 +426,18 @@ document.addEventListener('DOMContentLoaded', function(){
         throw new Error(data.message || 'Não foi possível gerar o Pix. Tente novamente.');
       }
 
-      const pix=data.pix || {};
-      const img=document.getElementById('pixImage');
-      const code=document.getElementById('pixCode');
+      const pix = data.pix || {};
+      const img = document.getElementById('pixImage');
+      const code = document.getElementById('pixCode');
 
-      code.value=pix.code || '';
+      const pixString = pix.code || pix.qrCode || pix.payload || '';
+      code.value = pixString;
 
-      if(pix.base64){
-        img.src=pix.base64;
-        img.style.display='block';
-      }else if(pix.image){
-        img.src=pix.image;
-        img.style.display='block';
-      }else{
-        img.style.display='none';
+      if (pixString) {
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixString)}`;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
       }
 
       form.style.display='none';
