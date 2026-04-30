@@ -8,6 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script>
+  window.pixelId = "69bcd8f3cc2c22d121bce753";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
 <style>
 :root{
   --green:#25D366;--green2:#128C7E;--green3:#075E54;--dark:#07110c;--ink:#142018;--muted:#526258;--soft:#eff7f2;--soft2:#f8fbf9;--line:#dde9e1;--white:#fff;--yellow:#fff3c4;--orange:#ffb020;--red:#e53935;--shadow:0 24px 80px rgba(7,17,12,.12);--shadow2:0 10px 35px rgba(7,17,12,.10);--r:18px;--r2:28px;--font:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;--display:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;--mono:'JetBrains Mono',monospace;
@@ -276,10 +284,10 @@ const names=[['Mariana comprou agora','há 2 minutos · Recife, PE','M'],['Carlo
 <!-- CHECKOUT PIX EMBUTIDO -->
 <div class="checkout-overlay" id="checkoutOverlay">
   <div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-    <div class="checkout-head">
+    <div class="checkout-head" style="background:#071207 url('data:image/svg+xml;utf8,<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"rgba(37,211,102,0.15)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\" ry=\"2\"></rect><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"></path></svg>') no-repeat right 20px top 20px;">
       <div>
-        <h3 id="checkoutTitle">Finalizar compra</h3>
-        <p>Preencha seus dados para gerar o Pix na hora.</p>
+        <h3 id="checkoutTitle" style="display:flex; align-items:center; gap:8px;">🔒 Checkout Seguro</h3>
+        <p>Preencha seus dados para liberar seu acesso imediato.</p>
       </div>
       <button class="checkout-close" onclick="closeCheckout()" aria-label="Fechar checkout">×</button>
     </div>
@@ -318,10 +326,17 @@ const names=[['Mariana comprou agora','há 2 minutos · Recife, PE','M'],['Carlo
 
         <div class="checkout-error" id="checkoutError"></div>
 
-        <button class="checkout-btn" id="checkoutSubmit" type="submit">Gerar Pix agora →</button>
+        <button class="checkout-btn" id="checkoutSubmit" type="submit" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Gerar Pix Seguro →
+        </button>
 
-        <div class="checkout-safe">
-          <span>🔒</span> pagamento processado com segurança
+        <div class="checkout-safe" style="display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:16px;">
+          <div style="display:flex; gap:6px; align-items:center; color:#128C7E; font-weight:700; font-size:13px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Ambiente 100% Seguro
+          </div>
+          <span style="font-size:11px; opacity:0.8;">Seus dados são criptografados e não serão compartilhados.</span>
         </div>
       </form>
 
