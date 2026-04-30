@@ -19,12 +19,14 @@ export default async function handler(req, res) {
 
   const identifier = 'rc_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
 
+  const productId = process.env.AMPLOPAY_PRODUCT_ID || 'responda-certo';
+
   const payload = {
     identifier,
     amount: 37.00, // Valor fixo do produto
     client: { name, email, phone, document },
     products: [{
-      id: 'responda-certo',
+      id: productId,
       name: 'Responda Certo',
       quantity: 1,
       price: 37.00
